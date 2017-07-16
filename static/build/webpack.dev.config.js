@@ -9,6 +9,7 @@ module.exports = merge(baseWebpackConfig,{
       'process.dev':{
         NODE_ENV:JSON.stringify('development')
       }
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ]
 })

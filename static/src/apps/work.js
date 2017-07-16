@@ -3,8 +3,11 @@ import { Layout, Menu, Icon } from 'antd'
 const { Header, Sider, Content } = Layout
 
 class Work extends React.Component {
-  state = {
-    collapsed: false,
+  constructor(props){
+    super(props)
+    this.state = {
+      collapsed: false
+    }
   }
   toggle = () => {
     this.setState({

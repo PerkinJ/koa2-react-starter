@@ -7,6 +7,9 @@ const bodyParser = require('koa-bodyparser')
 const koaLogger = require('koa-logger')
 const session = require('koa-session-minimal')
 const MysqlStore = require('koa-mysql-session')
+const koaWebpackMiddleware = require('koa-webpack-middleware')
+const webpackDevMiddleware = koaWebpackMiddleware.devMiddleware
+const webpackHotMiddleware = koaWebpackMiddleware.hotMiddleware
 
 const config = require('./../config')
 const routers = require('./routers/index')
