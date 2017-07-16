@@ -11,6 +11,12 @@ const koaWebpackMiddleware = require('koa-webpack-middleware')
 const webpackDevMiddleware = koaWebpackMiddleware.devMiddleware
 const webpackHotMiddleware = koaWebpackMiddleware.hotMiddleware
 
+//react热加载
+const webpack = require('webpack')
+const devConfig = require('../static/build/webpack.dev.config')
+const compiler = webpack(devConfig)
+const outputPath = path.join(__dirname, './../static/output/dist/')
+
 const config = require('./../config')
 const routers = require('./routers/index')
 
@@ -23,6 +29,20 @@ const sessionMysqlConfig= {
   database: config.database.DATABASE,
   host: config.database.HOST,
 }
+
+const wdm = webpackDevMiddleware(compiler, {
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: true
+  },
+  reload: true,
+  publicPath: outputPath,
+  stats: {
+    colors: true
+  }
+})
+app.use(convert(wdm))
+app.use(convert(webpackHotMiddleware(compiler)))
 
 // 配置session中间件
 app.use(session({
